@@ -1,0 +1,14 @@
+{
+    "manifest_version": 1,
+    "name": "LiveSongPlayer",
+    "version": "0.1.0",
+    "injects": {
+        "Main": [
+            {
+                "file": "main.js"
+            },{
+                "file":"utils.js"
+            }
+        ]
+    }
+}
