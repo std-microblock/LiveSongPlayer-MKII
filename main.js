@@ -14,7 +14,7 @@ plugin.onConfig(function (tools) {
         liveRoom: 25948785,
         borderRadius: "0.2rem",
         progressBarColor: "linear-gradient(90deg, #c2e7ff, #eddfff)",
-        align:"left",
+        align: "left",
         layout1: "column",
         layout2: "column"
     };
@@ -67,7 +67,7 @@ plugin.onConfig(function (tools) {
         liveRoom: "直播间号",
         borderRadius: "圆角大小",
         progressBarColor: "进度条颜色",
-        align:"对齐方式（left/right）",
+        align: "对齐方式（left/right）",
         layout1: "整体布局（row/column）",
         layout2: "歌曲信息布局（row/column）"
     }
@@ -122,12 +122,17 @@ plugin.onConfig(function (tools) {
             if (msg._ != "cc.microblock.liveSongPlayer") return;
 
             if (msg.type === "addToPlaylist") {
-                let song = await plugin.utils.searchSong(msg.keyword);
-                playlist.push({
-                    ...song, user: msg.user
-                });
-                attemptSwitchSong();
-                syncPlaylist();
+                try {
+                    let song = await plugin.utils.searchSong(msg.keyword);
+                    playlist.push({
+                        ...song, user: msg.user
+                    });
+                    attemptSwitchSong();
+                    syncPlaylist();
+                } catch (e) {
+                    return;
+                }
+
             }
         });
 
@@ -158,10 +163,10 @@ plugin.onConfig(function (tools) {
                     syncPlaylist()
                 }, -702, (v, v2) => v.id === v2.id)
 
-                setInterval(()=>{
+                setInterval(() => {
                     sendMessage(getSyncPlaying());
                     syncPlaylist()
-                },100)
+                }, 100)
 
                 monitorValue(() => {
                     let cover = document.querySelector(".j-cover").src.replace("48y48", "512y512");
@@ -177,7 +182,7 @@ plugin.onConfig(function (tools) {
                         type: "currentTime",
                         time: v
                     });
-                },-702)
+                }, -702)
             }, 100)
     }), ...configsDoms)
 })
