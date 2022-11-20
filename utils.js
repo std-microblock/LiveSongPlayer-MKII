@@ -1,7 +1,7 @@
-plugin.onLoad(function(plugin){
+plugin.onLoad(function (plugin) {
     let utils = {
         searchSong(keyword) {
-            return new Promise(function (resolve) {
+            return Promise.race(new Promise(function (resolve) {
                 var handle = setInterval(function () {
                     if (window["searching"])
                         return;
@@ -19,7 +19,7 @@ plugin.onLoad(function(plugin){
                         }, 50);
                     }, 100);
                 });
-            });
+            }), betterncm.utils.delay(6000).then(_ => { throw Error("Search 1s Timeout") }));
         },
         getSearchResult(number) {
             if (number === void 0) { number = 0; }
@@ -29,7 +29,7 @@ plugin.onLoad(function(plugin){
                 id: document.querySelectorAll(".container-searchtrack .m-plylist .itm.f-cb.j-item.j-impress")[number].classList.toString().match(/tid-(\S+)/)[1].trim()
             };
         },
-        playSong(id){
+        playSong(id) {
             _playsong_ = betterncm.ncm.findNativeFunction(ctl.actionManager, [".logSource=", ".action"]);
             ctl.actionManager[_playsong_]({ id, type: "4", action: "play", from: 0, href: "", data: {} });
         }
