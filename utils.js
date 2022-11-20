@@ -1,7 +1,7 @@
 plugin.onLoad(function (plugin) {
     let utils = {
         searchSong(keyword) {
-            return Promise.race(new Promise(function (resolve) {
+            return Promise.race([new Promise(function (resolve) {
                 var handle = setInterval(function () {
                     if (window["searching"])
                         return;
@@ -19,7 +19,7 @@ plugin.onLoad(function (plugin) {
                         }, 50);
                     }, 100);
                 });
-            }), betterncm.utils.delay(6000).then(_ => { throw Error("Search 1s Timeout") }));
+            }), betterncm.utils.delay(6000).then(_ => { throw Error("Search 1s Timeout") })]);
         },
         getSearchResult(number) {
             if (number === void 0) { number = 0; }
