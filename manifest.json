@@ -2,6 +2,7 @@
     "manifest_version": 1,
     "name": "LiveSongPlayer",
     "version": "0.1.5",
+    "author":"MicroBlock"
     "injects": {
         "Main": [
             {
