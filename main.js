@@ -123,7 +123,7 @@ plugin.onConfig(function (tools) {
 
             if (msg.type === "addToPlaylist") {
                 try {
-                    let song = await plugin.utils.searchSong(msg.keyword);
+                    let song = await plugin.injects[1].utils.searchSong(msg.keyword);
                     playlist.push({
                         ...song, user: msg.user
                     });
@@ -143,7 +143,7 @@ plugin.onConfig(function (tools) {
         function attemptSwitchSong() {
             if (playlist.length > 0 && current === null) {
                 current = playlist.shift();
-                plugin.utils.playSong(current.id)
+                plugin.injects[1].utils.playSong(current.id)
                 return true;
             }
             return false;
