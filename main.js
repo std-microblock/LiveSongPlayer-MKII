@@ -30,7 +30,6 @@ plugin.onConfig(function (tools) {
 
     function makeConfig(name, key) {
         let extra;
-        console.log(tools)
         let configInput = tools.makeInput(configs[key], { onchange: (e) => setVal(key, e.target.value), onkeyup: (e) => setVal(key, e.target.value) });
 
         function setVal(key, val) {
@@ -45,7 +44,8 @@ plugin.onConfig(function (tools) {
 
 
 
-        if (defaultConfigs[key].startsWith && defaultConfigs[key].startsWith("#")) extra = dom("input", { type: "color", value: configs[key], onchange: (e) => setVal(key, e.target.value) })
+        if (defaultConfigs[key].startsWith && defaultConfigs[key].startsWith("#")) 
+        extra = dom("input", { type: "color", value: configs[key], onchange: (e) => setVal(key, e.target.value) })
 
         return dom("div", {}, dom("span", { innerText: name }),
             configInput
@@ -123,7 +123,7 @@ plugin.onConfig(function (tools) {
 
             if (msg.type === "addToPlaylist") {
                 try {
-                    let song = await plugin.injects[1].utils.searchSong(msg.keyword);
+                    let song = await plugin.utils.searchSong(msg.keyword);
                     playlist.push({
                         ...song, user: msg.user
                     });
@@ -143,7 +143,7 @@ plugin.onConfig(function (tools) {
         function attemptSwitchSong() {
             if (playlist.length > 0 && current === null) {
                 current = playlist.shift();
-                plugin.injects[1].utils.playSong(current.id)
+                plugin.utils.playSong(current.id)
                 return true;
             }
             return false;
