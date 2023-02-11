@@ -184,5 +184,5 @@ plugin.onConfig(function (tools) {
                     });
                 }, -702)
             }, 100)
-    }), ...configsDoms)
+    }),dom("div",{innerText:"更改设置后按回车应用哦~"}), ...configsDoms)
 })
